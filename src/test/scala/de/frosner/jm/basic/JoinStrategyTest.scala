@@ -9,7 +9,8 @@ class JoinStrategyTest extends FlatSpec {
   private val strategies =
     Table[JoinStrategy](
       "strategy", // First tuple defines column names
-      NestedLoopJoin
+      NestedLoopJoin,
+      LookupJoin
     )
 
   "Joining" should "combine two values with the same key" in {
