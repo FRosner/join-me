@@ -10,7 +10,8 @@ class JoinStrategyTest extends FlatSpec {
     Table[JoinStrategy](
       "strategy", // First tuple defines column names
       NestedLoopJoin,
-      LookupJoin
+      LookupJoin,
+      SortMergeJoin
     )
 
   "Joining" should "combine two values with the same key" in {
@@ -102,6 +103,24 @@ class JoinStrategyTest extends FlatSpec {
       strategy.join(left, right) shouldBe Seq(
         Entry("a", (1, 2)),
         Entry("b", (1, 2))
+      )
+    }
+  }
+
+  it should "work if the smaller table does not have unique keys" in {
+    forAll(strategies) { strategy =>
+      val left = Seq(
+        Entry("a", 1),
+        Entry("a", 1)
+      )
+      val right = Seq(
+        Entry("a", 1),
+        Entry("b", 2),
+        Entry("c", 3)
+      )
+      strategy.join(left, right) shouldBe Seq(
+        Entry("a", (1, 1)),
+        Entry("a", (1, 1))
       )
     }
   }

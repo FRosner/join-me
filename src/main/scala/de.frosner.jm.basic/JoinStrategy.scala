@@ -4,7 +4,8 @@ import de.frosner.jm.basic.JoinStrategy.DataSet
 
 trait JoinStrategy {
 
-  def join[K, V1, V2](a: DataSet[K, V1], b: DataSet[K, V2]): DataSet[K, (V1, V2)]
+  def join[K, V1, V2](a: DataSet[K, V1], b: DataSet[K, V2])(
+      implicit ordering: Ordering[K]): DataSet[K, (V1, V2)]
 
 }
 
