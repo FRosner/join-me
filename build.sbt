@@ -10,7 +10,9 @@ lazy val root = (project in file("."))
     // A set of useful dependencies
     libraryDependencies ++= List(
       // Test framework
-      "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+      "org.scalatest" %% "scalatest" % "3.0.1" % Test,
+      "com.typesafe.akka" %% "akka-actor" % "2.5.10",
+      "com.typesafe.akka" %% "akka-testkit" % "2.5.10" % Test
     ),
     scalacOptions ++= List(
       // Code encoding
